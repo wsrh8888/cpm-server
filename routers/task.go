@@ -7,5 +7,5 @@ import (
 )
 
 func Router(router *gin.RouterGroup) {
-	router.GET("/get_all", controller.SavePackage)
+	router.POST("/get_all", controller.SaveTask)
 }
