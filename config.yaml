@@ -1,0 +1,15 @@
+system:
+  db-type: mysql
+  addr: 7777
+
+mysql:
+  path: 127.0.0.1
+  port: "3306"
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db-name: 'gin_project'
+  username: root
+  password: '7823125.'
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false

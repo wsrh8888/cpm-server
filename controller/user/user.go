@@ -1,17 +1,14 @@
 package user
 
 import (
-	"cpm/initialize"
-	"cpm/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
 func SendEmail(ctx *gin.Context) {
-	email := ctx.PostForm("email")
+	// email := ctx.PostForm("email")
 
-	is_ok := utils.VerifyEmail(email)
-	var count int
-	initialize.DB.Where("email =?", email).Find(&front_user).Count(&count)
+	// is_ok := utils.VerifyEmail(email)
+	// var count int
+	// initialize.DB.Where("email =?", email).Find(&front_user).Count(&count)
 
 }
