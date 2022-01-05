@@ -2,7 +2,6 @@ package main
 
 import (
 	"cpm/initialize"
-	"cpm/middleware"
 	all_router "cpm/routers"
 	"os"
 
@@ -17,7 +16,7 @@ func main() {
 	defer db.Close()
 
 	router := gin.Default()
-	router.Use(middleware.CrosMiddleWare)
+	router.Use(initialize.CrosMiddleWare)
 
 	all_router.InitRouter(router)
 	port := viper.GetString("server.port")

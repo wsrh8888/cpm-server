@@ -31,7 +31,8 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		panic("failed to connect database, err: " + err.Error())
 	}
-	db.AutoMigrate(&model.User{}, &model.Task{})
+	// 自动创建表
+	db.AutoMigrate(&model.Version{}, &model.Project{})
 
 	DB = db
 	return db
