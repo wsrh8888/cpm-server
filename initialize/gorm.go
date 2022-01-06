@@ -2,6 +2,8 @@ package initialize
 
 import (
 	"cpm/global"
+	"cpm/model/system"
+	"os"
 
 	"gorm.io/gorm"
 )
@@ -12,5 +14,15 @@ func Gorm() *gorm.DB {
 		return GormMysql()
 	default:
 		return GormMysql()
+	}
+}
+
+func RegisterTables(db *gorm.DB) {
+	err := db.AutoMigrate(
+		system.SysUser{},
+	)
+	if err != nil {
+		// global.GVA_LOG.Error("register table failed", zap.Error(err))
+		os.Exit(0)
 	}
 }

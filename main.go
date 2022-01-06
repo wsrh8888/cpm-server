@@ -10,6 +10,11 @@ func main() {
 	// 初始化部分global.CPM_CONFIG 相关数据
 	global.CPM_VP = core.Viper()      // 初始化Viper
 	global.CPM_DB = initialize.Gorm() // gorm连接数据库
+	if global.CPM_DB != nil {
+		println("数据库连接成功")
+		initialize.RegisterTables(global.CPM_DB) // 初始化表
+
+	}
 	core.RunWindowsServer()
 }
 
