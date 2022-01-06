@@ -10,6 +10,8 @@ import (
 )
 
 func (b *BaseApi) Login(c *gin.Context) {
+	var l systemReq.Login
+	_ = c.ShouldBindJSON(&l)
 
 }
 

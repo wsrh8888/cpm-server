@@ -1,7 +1,10 @@
 system:
   db-type: mysql
   addr: 7777
-
+captcha:
+  key-long: 6
+  img-width: 240
+  img-height: 80
 mysql:
   path: 127.0.0.1
   port: "3306"
@@ -13,3 +16,19 @@ mysql:
   max-open-conns: 100
   log-mode: ""
   log-zap: false
+
+# redis configuration
+redis:
+  db: 0
+  addr: '127.0.0.1:6379'
+  password: ''
+
+# email configuration
+email:
+  to: ''
+  port: 587
+  from: '751135385@qq.com'
+  host: 'smtp.qq.com'
+  is-ssl: true
+  secret: 'pgiizukrdtdabefd'
+  nickname: 'CPM平台'

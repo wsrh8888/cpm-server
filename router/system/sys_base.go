@@ -13,6 +13,8 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
 	{
 		baseRouter.POST("register", baseApi.Register)
+		baseRouter.POST("captcha", baseApi.Captcha)
+
 	}
 	return baseRouter
 }
