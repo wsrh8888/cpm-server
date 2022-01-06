@@ -3,7 +3,7 @@ package system
 import (
 	"cpm/global"
 
-	"github.com/gofrs/uuid"
+	uuid "github.com/satori/go.uuid"
 )
 
 type SysUser struct {
