@@ -1,6 +1,7 @@
 package cpm
 
 import (
+	"cpm/model/common/request"
 	"cpm/model/common/response"
 	"cpm/model/cpm"
 	"net/http"
@@ -34,7 +35,14 @@ func (*ProjectApi) AddCpmProject(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"添加成功"}"
 // @Router /menu/addBaseMenu [post]
 func (*ProjectApi) DeleteCpmProject(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"ok": 111,
-	})
+	var uuidInfo request.GetByUuid
+	_ = c.ShouldBindJSON(&uuidInfo)
+	if err := cpmService.DeleteProject(uuidInfo.UUID); err != nil {
+		response.FailWithMessage("删除失败", c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": "删除成功",
+		})
+	}
 }
