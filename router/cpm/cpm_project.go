@@ -13,6 +13,7 @@ func (*ProjectRouter) InitCpmProject(Router *gin.RouterGroup) (R gin.IRoutes) {
 	projectApi := v1.ApiGroupApp.CpmApiGroup.ProjectApi
 	{
 		baseRouter.POST("addCpmProject", projectApi.AddCpmProject)
+		baseRouter.POST("deleteCpmProject", projectApi.DeleteCpmProject)
 	}
 	return baseRouter
 }

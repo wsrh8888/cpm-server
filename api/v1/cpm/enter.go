@@ -1,6 +1,11 @@
 package cpm
 
+import "cpm/service"
+
 type ApiGroup struct {
-	BaseApi
 	ProjectApi
 }
+
+var (
+	cpmService = service.ServiceGroupApp.CpmServiceGroup.CpmService
+)
