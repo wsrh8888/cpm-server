@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"cpm/global"
+	"cpm/model/cpm"
 	"cpm/model/system"
 	"os"
 
@@ -20,6 +21,9 @@ func Gorm() *gorm.DB {
 func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
 		system.SysUser{},
+		cpm.CpmProject{},
+		cpm.CpmImport{},
+		cpm.CpmImport{},
 	)
 	if err != nil {
 		// global.GVA_LOG.Error("register table failed", zap.Error(err))

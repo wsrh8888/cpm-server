@@ -12,13 +12,18 @@ import (
 func Routers() *gin.Engine {
 	Router := gin.Default()
 	systemRouter := router.RouterGroupApp.System
-	PublicGroup := Router.Group("")
-
+	cpmRouter := router.RouterGroupApp.Cpm
 	// 解决跨域
 	Router.Use(middleware.Cors()) // 直接放行全部跨域请求
 
+	PublicGroup := Router.Group("")
 	{
 		systemRouter.InitBaseRouter(PublicGroup)
+	}
+
+	PrivateGroup := Router.Group("")
+	{
+		cpmRouter.InitCpmProject(PrivateGroup)
 	}
 	{
 		// 健康监测
