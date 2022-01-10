@@ -12,6 +12,6 @@ func (s *InitRouter) InitInitRouter(Router *gin.RouterGroup) {
 	initRouter := Router.Group("init")
 	dbApi := v1.ApiGroupApp.SystemApiGroup.DBApi
 	{
-		initRouter.POST("initdb", dbApi.InitDB) // 创建Api
+		initRouter.GET("initdb", dbApi.InitDB) // 创建Api
 	}
 }

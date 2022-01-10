@@ -17,10 +17,6 @@ type DBApi struct{}
 // @Success 200 {string} string "{"code":0,"data":{},"msg":"自动创建数据库成功"}"
 // @Router /init/initdb [post]
 func (i *DBApi) InitDB(c *gin.Context) {
-	if global.CPM_DB != nil {
-		response.FailWithMessage("已存在数据库配置", c)
-		return
-	}
 	if err := initDBService.InitDB(); err != nil {
 		response.FailWithMessage("自动创建数据库失败，请查看后台日志，检查后在进行初始化", c)
 		return
