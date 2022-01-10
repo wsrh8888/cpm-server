@@ -4,6 +4,7 @@ import (
 	"cpm/global"
 	"cpm/model/cpm"
 	model "cpm/model/system"
+	cpmSource "cpm/source/cpm"
 	source "cpm/source/system"
 )
 
@@ -30,5 +31,7 @@ func (initDBService *InitDBService) InitDB() error {
 func (initDBService *InitDBService) initMysqlData() error {
 	return model.MysqlDataInitialize(
 		source.User,
+		cpmSource.Language,
+		cpmSource.Type,
 	)
 }

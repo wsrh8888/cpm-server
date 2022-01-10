@@ -7,5 +7,15 @@ type InitData interface {
 }
 
 func MysqlDataInitialize(inits ...InitData) error {
+	for i := 0; i < len(inits); i++ {
+		if inits[i].CheckDataExist() {
+			continue
+		}
+
+		if err := inits[i].Initialize(); err != nil {
+			return err
+		} else {
+		}
+	}
 	return nil
 }
