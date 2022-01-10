@@ -23,7 +23,7 @@ func RegisterTables(db *gorm.DB) {
 		system.SysUser{},
 		cpm.CpmProject{},
 		cpm.CpmImport{},
-		cpm.CpmImport{},
+		cpm.CpmVersion{},
 	)
 	if err != nil {
 		// global.GVA_LOG.Error("register table failed", zap.Error(err))

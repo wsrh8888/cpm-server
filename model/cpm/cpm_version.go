@@ -6,4 +6,5 @@ type CpmVersion struct {
 	Publisher   string `json:"publisher"  form:"user_id" gorm:"comment:'发布者'"`
 	Description string `json:"description"  gorm:"comment:'描述信息'"`
 	Keywords    string `json:"keywords" gorm:"comment:'关键字'"`
+	Main        string `json:"main" gorm:" default:main;comment:'关键字'"`
 }

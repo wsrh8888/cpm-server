@@ -6,13 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CpmVersion struct{}
+type VersionRouter struct{}
 
-func (*CpmVersion) InitCpmVersion(Router *gin.RouterGroup) (R gin.IRoutes) {
+func (*VersionRouter) InitCpmVersion(Router *gin.RouterGroup) (R gin.IRoutes) {
 	baseRouter := Router.Group("cpmVersion")
-	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
+	baseApi := v1.ApiGroupApp.CpmApiGroup
 	{
-		baseRouter.POST("register", baseApi.Register)
+		baseRouter.POST("addCpmVersion", baseApi.AddCpmVersion)
 	}
 	return baseRouter
 }
