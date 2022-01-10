@@ -36,3 +36,8 @@ func (cpmService *CpmService) DeleteProject(id uuid.UUID) (err error) {
 	err = global.CPM_DB.Where("uuid = ?", id).Unscoped().Delete(&cpm.CpmProject{}).Error
 	return err
 }
+
+func (cpmService *CpmService) GetProject(id uint) (err error, cpmInter cpm.CpmProject) {
+	err = global.CPM_DB.Where("id = ?", id).Preload("User").First(&cpmInter).Error
+	return
+}

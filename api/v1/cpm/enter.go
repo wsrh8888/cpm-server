@@ -7,5 +7,6 @@ type ApiGroup struct {
 }
 
 var (
-	cpmService = service.ServiceGroupApp.CpmServiceGroup.CpmService
+	cpmService        = service.ServiceGroupApp.CpmServiceGroup.CpmService
+	cpmVersionService = service.ServiceGroupApp.CpmServiceGroup.CpmVersionService
 )

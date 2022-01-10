@@ -1,6 +1,8 @@
 package cpm
 
 import (
+	"cpm/model/common/response"
+	"cpm/model/cpm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,15 +16,15 @@ type VersionApi struct{}
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"添加成功"}"
 // @Router /menu/addBaseMenu [post]
 func (*ProjectApi) AddCpmVersion(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"code":   0,
-		"result": "info",
-	})
-	// var cpmProject cpm.CpmProject
-	// _ = c.ShouldBindJSON(&cpmProject)
-	// if err, info := cpmService.AddProject(cpmProject); err != nil {
-	// 	response.FailWithMessage(err.Error(), c)
-	// } else {
 
-	// }
+	var cpmVersion cpm.CpmVersion
+	_ = c.ShouldBindJSON(&cpmVersion)
+	if err, info := cpmVersionService.AddVersion(cpmVersion); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": info,
+		})
+	}
 }

@@ -11,6 +11,19 @@ import (
 
 type ProjectApi struct{}
 
+func (*ProjectApi) GetCpmProject(c *gin.Context) {
+	var cpmProject cpm.CpmProject
+	_ = c.ShouldBindJSON(&cpmProject)
+	if err, info := cpmService.GetProject(cpmProject.ID); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": info,
+		})
+	}
+}
+
 // @Tags Menu
 // @Summary 新增项目
 // @Param data body system.SysBaseMenu true "路由path, 父菜单ID, 路由name, 对应前端文件路径, 排序标记"
