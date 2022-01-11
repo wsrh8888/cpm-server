@@ -28,3 +28,16 @@ func (*ProjectApi) AddCpmVersion(c *gin.Context) {
 		})
 	}
 }
+
+func (*ProjectApi) GetCpmVersion(c *gin.Context) {
+	var cpmVersion cpm.CpmVersion
+	_ = c.ShouldBindJSON(&cpmVersion)
+	if err, info := cpmService.GetVersion(cpmVersion.VersionId); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": info,
+		})
+	}
+}

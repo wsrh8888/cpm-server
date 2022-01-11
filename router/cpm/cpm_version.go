@@ -13,7 +13,7 @@ func (*VersionRouter) InitCpmVersion(Router *gin.RouterGroup) (R gin.IRoutes) {
 	baseApi := v1.ApiGroupApp.CpmApiGroup
 	{
 		baseRouter.POST("addCpmVersion", baseApi.AddCpmVersion)
-
+		baseRouter.POST("getCpmVersion", baseApi.GetCpmVersion)
 	}
 	return baseRouter
 }
