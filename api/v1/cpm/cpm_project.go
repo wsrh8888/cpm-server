@@ -32,7 +32,7 @@ func (*ProjectApi) GetCpmProject(c *gin.Context) {
 func (*ProjectApi) AddCpmProject(c *gin.Context) {
 	var cpmProject cpm.CpmProject
 	_ = c.ShouldBindJSON(&cpmProject)
-	if err, info := cpmService.AddProject(cpmProject); err != nil {
+	if info, err := cpmService.AddProject(cpmProject); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		c.JSON(http.StatusOK, gin.H{
