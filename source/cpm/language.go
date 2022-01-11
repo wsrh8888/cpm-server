@@ -20,7 +20,7 @@ func (u *language) TableName() string {
 }
 
 func (u *language) Initialize() error {
-	entities := []cpm.CpmProjectLanguage{
+	entities := []cpm.CpmLanguage{
 		{LanguageId: "1000", LanguageName: "vue2"},
 		{LanguageId: "2000", LanguageName: "vue3"},
 		{LanguageId: "3000", LanguageName: "react"},
@@ -33,7 +33,7 @@ func (u *language) Initialize() error {
 }
 
 func (u *language) CheckDataExist() bool {
-	if errors.Is(global.CPM_DB.Where("language_id = ?", "1000").First(&cpm.CpmProjectLanguage{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
+	if errors.Is(global.CPM_DB.Where("language_id = ?", "1000").First(&cpm.CpmLanguage{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
 		return false
 	}
 	return true

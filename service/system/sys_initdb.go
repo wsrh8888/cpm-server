@@ -5,7 +5,7 @@ import (
 	"cpm/model/cpm"
 	model "cpm/model/system"
 	cpmSource "cpm/source/cpm"
-	source "cpm/source/system"
+	cpmSystem "cpm/source/system"
 )
 
 type InitDBService struct{}
@@ -30,7 +30,7 @@ func (initDBService *InitDBService) InitDB() error {
 
 func (initDBService *InitDBService) initMysqlData() error {
 	return model.MysqlDataInitialize(
-		source.User,
+		cpmSystem.User,
 		cpmSource.Language,
 		cpmSource.Type,
 	)

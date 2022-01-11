@@ -20,12 +20,13 @@ func Gorm() *gorm.DB {
 
 func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
-		system.SysUser{},
+		cpm.CpmLanguage{},
+		cpm.CpmType{},
 		cpm.CpmProject{},
 		cpm.CpmImport{},
 		cpm.CpmVersion{},
-		cpm.CpmProjectLanguage{},
-		cpm.CpmProjectType{},
+
+		system.SysUser{},
 	)
 	if err != nil {
 		// global.GVA_LOG.Error("register table failed", zap.Error(err))

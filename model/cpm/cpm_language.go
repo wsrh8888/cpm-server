@@ -1,6 +1,6 @@
 package cpm
 
-type CpmProjectType struct {
-	TypeId   string `json:"typeId" gorm:"comment:语言ID"`
-	TypeName string `json:"typeName" gorm:"comment:语言名称"`
+type CpmLanguage struct {
+	LanguageId   string `json:"languageId" gorm:"primary_key;comment:语言ID"`
+	LanguageName string `json:"languageName" gorm:"comment:语言名称"`
 }
