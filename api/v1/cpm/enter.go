@@ -4,6 +4,7 @@ import "cpm/service"
 
 type ApiGroup struct {
 	ProjectApi
+	VersionApi
 }
 
 var (
