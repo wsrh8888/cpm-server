@@ -21,9 +21,9 @@ func (u *projectType) TableName() string {
 
 func (u *projectType) Initialize() error {
 	entities := []cpm.CpmType{
-		{TypeId: 10000, TypeName: "组件库"},
-		{TypeId: 20000, TypeName: "静态资源"},
-		{TypeId: 30000, TypeName: "AB Test"},
+		{TypeId: "10000", TypeName: "组件库"},
+		{TypeId: "20000", TypeName: "静态资源"},
+		{TypeId: "30000", TypeName: "AB Test"},
 	}
 	if err := global.CPM_DB.Create(&entities).Error; err != nil {
 		return errors.Wrap(err, u.TableName()+"表数据初始化失败!")
