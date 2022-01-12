@@ -43,12 +43,8 @@ func (b *BaseApi) Register(c *gin.Context) {
 	user := &system.SysUser{Email: r.Email, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg}
 	err, userReturn := userService.Register(*user)
 	if err != nil {
-		response.FailWithDetailed(systemRes.SysUserResponse{User: userReturn}, err.Error(), c)
+		response.FailWithDetailed(nil, err.Error(), c)
 	} else {
 		response.OkWithDetailed(systemRes.SysUserResponse{User: userReturn}, "注册成功", c)
 	}
-}
-
-func (b *BaseApi) tokenNext(c *gin.Context, user system.SysUser) {
-
 }
