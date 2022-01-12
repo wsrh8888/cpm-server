@@ -4,6 +4,7 @@ import (
 	"cpm/global"
 	"cpm/model/cpm"
 	"cpm/model/cpm/request"
+	"cpm/model/cpm/response"
 	"errors"
 
 	uuid "github.com/satori/go.uuid"
@@ -48,6 +49,7 @@ func (cpmService *CpmService) GetProject(info request.SysDictionaryDetailSearch)
 	offset := info.PageSize * (info.Page - 1)
 	db := global.CPM_DB.Model(&cpm.CpmProject{})
 	var sysDictionaryDetails []cpm.CpmProject
+	var project []response.ProjectList
 	print(info.TypeId)
 	if info.UUID != uuid.Nil {
 		db = db.Where("uuid = ?", info.UUID)
@@ -63,5 +65,15 @@ func (cpmService *CpmService) GetProject(info request.SysDictionaryDetailSearch)
 		return
 	}
 	err = db.Limit(limit).Offset(offset).Preload("Author").Preload("Type").Preload("Language").Find(&sysDictionaryDetails).Error
-	return sysDictionaryDetails, total, err
+	for _, v := range sysDictionaryDetails {
+		project = append(project, response.ProjectList{
+			UUID:         v.UUID,
+			Name:         v.Name,
+			AuthorName:   v.Author.NickName,
+			LanguageName: v.Language.LanguageName,
+			TypeName:     v.Type.TypeName,
+		})
+	}
+
+	return project, total, err
 }
