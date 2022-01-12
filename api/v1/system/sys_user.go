@@ -12,7 +12,10 @@ import (
 
 func (b *BaseApi) Login(c *gin.Context) {
 	var l systemReq.Login
-	_ = c.ShouldBindJSON(&l)
+	if errBind := c.ShouldBindJSON(&l); errBind != nil {
+		response.FailWithMessage(errBind.Error(), c)
+		return
+	}
 	if store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &system.SysUser{Email: l.Email, Password: l.Password}
 		if err, user := userService.Login(u); err != nil {
@@ -33,10 +36,11 @@ func (b *BaseApi) Login(c *gin.Context) {
 
 func (b *BaseApi) Register(c *gin.Context) {
 	var r systemReq.Register
-	_ = c.ShouldBindJSON(&r)
+	if errBind := c.ShouldBindJSON(&r); errBind != nil {
+		response.FailWithMessage(errBind.Error(), c)
+		return
+	}
 	user := &system.SysUser{Email: r.Email, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg}
-	println(user.Email)
-	println(r.Email)
 	err, userReturn := userService.Register(*user)
 	if err != nil {
 		response.FailWithDetailed(systemRes.SysUserResponse{User: userReturn}, err.Error(), c)

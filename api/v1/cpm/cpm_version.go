@@ -17,7 +17,10 @@ type VersionApi struct{}
 // @Router /menu/addBaseMenu [post]
 func (v VersionApi) AddCpmVersion(c *gin.Context) {
 	var cpmVersion cpm.CpmVersion
-	_ = c.ShouldBindJSON(&cpmVersion)
+	if errBind := c.ShouldBindJSON(&cpmVersion); errBind != nil {
+		response.FailWithMessage(errBind.Error(), c)
+		return
+	}
 	if info, err := cpmVersionService.AddVersion(cpmVersion); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {

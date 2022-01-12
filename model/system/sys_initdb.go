@@ -15,6 +15,7 @@ func MysqlDataInitialize(inits ...InitData) error {
 		if err := inits[i].Initialize(); err != nil {
 			return err
 		} else {
+			continue
 		}
 	}
 	return nil
