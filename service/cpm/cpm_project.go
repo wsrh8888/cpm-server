@@ -38,6 +38,11 @@ func (cpmService *CpmService) DeleteProject(id uuid.UUID) (err error) {
 	return err
 }
 
+/**
+ * @description: 分页获取项目详情列表
+ * @param {request.SysDictionaryDetailSearch} info
+ * @return {*}
+ */
 func (cpmService *CpmService) GetProject(info request.SysDictionaryDetailSearch) (list interface{}, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)

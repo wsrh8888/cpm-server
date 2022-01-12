@@ -13,6 +13,7 @@ func (*ImportRouter) InitCpmImport(Router *gin.RouterGroup) (R gin.IRoutes) {
 	baseApi := v1.ApiGroupApp.CpmApiGroup
 	{
 		baseRouter.POST("getCpmImport", baseApi.GetCpmImport)
+		baseRouter.POST("getCpmImportSearchList", baseApi.GetCpmImportSearchList)
 	}
 	return baseRouter
 }
