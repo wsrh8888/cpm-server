@@ -1,26 +1,24 @@
 package cpm
 
 import (
+	"cpm/model/common/response"
 	"cpm/model/cpm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func (*VersionApi) AddCpmImport(c *gin.Context, list []cpm.CpmImport) {
+type ImportApi struct{}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code":   0,
-		"result": list,
-	})
-	// var cpmImport []cpm.CpmImport
-
-	// if info, err := cpmService.AddImport(cpmImport); err != nil {
-	// 	response.FailWithMessage(err.Error(), c)
-	// } else {
-	// 	c.JSON(http.StatusOK, gin.H{
-	// 		"code":   0,
-	// 		"result": info,
-	// 	})
-	// }
+func (*ImportApi) GetCpmImport(c *gin.Context) {
+	var cpmImport cpm.CpmImport
+	_ = c.ShouldBindJSON(&cpmImport)
+	if info, err := cpmImportService.GetImport(cpmImport); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": info,
+		})
+	}
 }

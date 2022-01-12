@@ -18,7 +18,7 @@ type VersionApi struct{}
 func (v VersionApi) AddCpmVersion(c *gin.Context) {
 	var cpmVersion cpm.CpmVersion
 	_ = c.ShouldBindJSON(&cpmVersion)
-	if err, info := cpmVersionService.AddVersion(cpmVersion); err != nil {
+	if info, err := cpmVersionService.AddVersion(cpmVersion); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		c.JSON(http.StatusOK, gin.H{
@@ -31,7 +31,7 @@ func (v VersionApi) AddCpmVersion(c *gin.Context) {
 func (*ProjectApi) GetCpmVersion(c *gin.Context) {
 	var cpmVersion cpm.CpmVersion
 	_ = c.ShouldBindJSON(&cpmVersion)
-	if err, info := cpmService.GetVersion(cpmVersion); err != nil {
+	if info, err := cpmService.GetVersion(cpmVersion); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		c.JSON(http.StatusOK, gin.H{

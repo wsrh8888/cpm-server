@@ -28,6 +28,7 @@ func Routers() *gin.Engine {
 	{
 		cpmRouter.InitCpmProject(PrivateGroup)
 		cpmRouter.InitCpmVersion(PrivateGroup)
+		cpmRouter.InitCpmImport(PrivateGroup)
 	}
 	// 健康监测
 	{
