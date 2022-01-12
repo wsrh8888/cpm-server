@@ -37,7 +37,7 @@ func (cpmService *CpmService) DeleteProject(id uuid.UUID) (err error) {
 	return err
 }
 
-func (cpmService *CpmService) GetProject(id uint) (err error, cpmInter cpm.CpmProject) {
+func (cpmService *CpmService) GetProject(id uint) (cpmInter cpm.CpmProject, err error) {
 	err = global.CPM_DB.Where("id = ?", id).Preload("Author").Preload("Type").Preload("Language").First(&cpmInter).Error
 	return
 }

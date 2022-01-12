@@ -14,7 +14,7 @@ type ProjectApi struct{}
 func (*ProjectApi) GetCpmProject(c *gin.Context) {
 	var cpmProject cpm.CpmProject
 	_ = c.ShouldBindJSON(&cpmProject)
-	if err, info := cpmService.GetProject(cpmProject.ID); err != nil {
+	if info, err := cpmService.GetProject(cpmProject.ID); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		c.JSON(http.StatusOK, gin.H{
