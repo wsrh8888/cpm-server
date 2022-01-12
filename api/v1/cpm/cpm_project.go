@@ -3,6 +3,8 @@ package cpm
 import (
 	"cpm/model/common/request"
 	"cpm/model/common/response"
+	cpmRequestModel "cpm/model/cpm/request"
+
 	"cpm/model/cpm"
 	"net/http"
 
@@ -12,16 +14,29 @@ import (
 type ProjectApi struct{}
 
 func (*ProjectApi) GetCpmProject(c *gin.Context) {
-	var cpmProject cpm.CpmProject
-	_ = c.ShouldBindJSON(&cpmProject)
-	if info, err := cpmService.GetProject(cpmProject.ID); err != nil {
-		response.FailWithMessage(err.Error(), c)
+	var pageInfo cpmRequestModel.SysDictionaryDetailSearch
+	_ = c.ShouldBindJSON(&pageInfo)
+
+	if list, total, err := cpmService.GetProject(pageInfo); err != nil {
+		response.FailWithMessage("获取失败", c)
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"code":   0,
-			"result": info,
-		})
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
 	}
+	// var cpmProject cpm.CpmProject
+	// _ = c.ShouldBindJSON(&cpmProject)
+	// if info, err := cpmService.GetProject(cpmProject.ID); err != nil {
+	// 	response.FailWithMessage(err.Error(), c)
+	// } else {
+	// 	c.JSON(http.StatusOK, gin.H{
+	// 		"code":   0,
+	// 		"result": info,
+	// 	})
+	// }
 }
 
 // @Tags Menu

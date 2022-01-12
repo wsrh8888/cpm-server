@@ -3,6 +3,7 @@ package cpm
 import (
 	"cpm/global"
 	"cpm/model/cpm"
+	"cpm/model/cpm/request"
 	"errors"
 
 	uuid "github.com/satori/go.uuid"
@@ -37,7 +38,25 @@ func (cpmService *CpmService) DeleteProject(id uuid.UUID) (err error) {
 	return err
 }
 
-func (cpmService *CpmService) GetProject(id uint) (cpmInter cpm.CpmProject, err error) {
-	err = global.CPM_DB.Where("id = ?", id).Preload("Author").Preload("Type").Preload("Language").First(&cpmInter).Error
-	return
+func (cpmService *CpmService) GetProject(info request.SysDictionaryDetailSearch) (list interface{}, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	db := global.CPM_DB.Model(&cpm.CpmProject{})
+	var sysDictionaryDetails []cpm.CpmProject
+	print(info.TypeId)
+	if info.UUID != uuid.Nil {
+		db = db.Where("uuid = ?", info.UUID)
+	}
+	if info.TypeId != "" {
+		db = db.Where("type_id = ?", info.TypeId)
+	}
+	if info.LanguageId != "" {
+		db = db.Where("status = ?", info.LanguageId)
+	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = db.Limit(limit).Offset(offset).Preload("Author").Preload("Type").Preload("Language").Find(&sysDictionaryDetails).Error
+	return sysDictionaryDetails, total, err
 }
