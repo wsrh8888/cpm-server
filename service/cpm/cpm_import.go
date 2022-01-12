@@ -16,7 +16,7 @@ func (cpmService *CpmImportService) GetImport(cpmImport cpm.CpmImport) (cpmInter
 	return importList, err
 }
 
-func (cpmService *CpmImportService) GetCpmImportSearchList(cpmImport []cpm.CpmImport) (cpmInter []response.AutoListUrl, err error) {
+func (cpmService *CpmImportService) GetCpmImportUrlList(cpmImport []cpm.CpmImport) (cpmInter []response.AutoListUrl, err error) {
 	err = global.CPM_DB.Transaction(func(tx *gorm.DB) error {
 		for _, v := range cpmImport {
 			var api cpm.CpmImport
