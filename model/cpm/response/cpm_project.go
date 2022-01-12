@@ -5,7 +5,7 @@ import (
 )
 
 type ProjectList struct {
-	UUID         uuid.UUID `json:"uuid"`
+	Id           uuid.UUID `json:"id"`
 	Name         string    `json:"name"`
 	AuthorName   string    `json:"authorName"`
 	LanguageName string    `json:"languageName"`

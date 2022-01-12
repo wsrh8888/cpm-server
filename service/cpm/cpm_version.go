@@ -3,6 +3,7 @@ package cpm
 import (
 	"cpm/global"
 	"cpm/model/cpm"
+	"cpm/model/cpm/response"
 	"errors"
 
 	"gorm.io/gorm"
@@ -37,7 +38,16 @@ func (cpmService *CpmVersionService) AddVersion(cpmVersion cpm.CpmVersion) (cpmI
 
 }
 
-func (cpmService *CpmService) GetVersion(version cpm.CpmVersion) (cpmInter cpm.CpmVersion, err error) {
-	err = global.CPM_DB.Where("project_id = ? and version= ?", version.ProjectId, version.Version).Preload("Publish").First(&cpmInter).Error
-	return
+func (cpmService *CpmService) GetVersion(version cpm.CpmVersion) (cpmInter interface{}, err error) {
+	var versionList []cpm.CpmVersion
+	err = global.CPM_DB.Where("project_id = ?", version.ProjectId).Preload("Publish").Find(&versionList).Error
+	var importList []response.VersionList
+	for _, v := range versionList {
+		importList = append(importList, response.VersionList{
+			Version:   v.Version,
+			Publisher: v.Publish.NickName,
+			CreatedAt: v.CreatedAt,
+		})
+	}
+	return importList, err
 }

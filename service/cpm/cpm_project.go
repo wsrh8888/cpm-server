@@ -67,7 +67,7 @@ func (cpmService *CpmService) GetProject(info request.SysDictionaryDetailSearch)
 	err = db.Limit(limit).Offset(offset).Preload("Author").Preload("Type").Preload("Language").Find(&sysDictionaryDetails).Error
 	for _, v := range sysDictionaryDetails {
 		project = append(project, response.ProjectList{
-			UUID:         v.UUID,
+			Id:           v.UUID,
 			Name:         v.Name,
 			AuthorName:   v.Author.NickName,
 			LanguageName: v.Language.LanguageName,
