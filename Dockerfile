@@ -12,6 +12,4 @@ RUN go build -o docker_cpm .
 
 EXPOSE 7777
 
-CMD [ "./docker_cpm" ]
-
-# ENTRYPOINT ./server -c config.docker.yaml
+ENTRYPOINT ./server -c config.docker.yaml

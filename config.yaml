@@ -6,7 +6,7 @@ captcha:
   img-width: 240
   img-height: 80
 mysql:
-  path: 127.0.0.1
+  path: 39.105.146.104
   port: "3306"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: 'cpm'
