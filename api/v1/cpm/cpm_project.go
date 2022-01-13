@@ -6,7 +6,6 @@ import (
 	cpmRequestModel "cpm/model/cpm/request"
 
 	"cpm/model/cpm"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -46,14 +45,14 @@ func (*ProjectApi) GetCpmProject(c *gin.Context) {
 // @Router /menu/addBaseMenu [post]
 func (*ProjectApi) AddCpmProject(c *gin.Context) {
 	var cpmProject cpm.CpmProject
-	_ = c.ShouldBindJSON(&cpmProject)
-	if info, err := cpmService.AddProject(cpmProject); err != nil {
+	if errBind := c.ShouldBindJSON(&cpmProject); errBind != nil {
+		response.FailWithMessage(errBind.Error(), c)
+		return
+	}
+	if _, err := cpmService.AddProject(cpmProject); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"code":   0,
-			"result": info,
-		})
+		response.OkWithDetailed(nil, "创建项目成功", c)
 	}
 }
 
@@ -68,9 +67,6 @@ func (*ProjectApi) DeleteCpmProject(c *gin.Context) {
 	if err := cpmService.DeleteProject(uuidInfo.UUID); err != nil {
 		response.FailWithMessage("删除失败", c)
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"code":   0,
-			"result": "删除成功",
-		})
+		response.OkWithDetailed(nil, "删除成功", c)
 	}
 }

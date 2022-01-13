@@ -4,7 +4,6 @@ import (
 	"cpm/model/common/response"
 	"cpm/model/system"
 	systemReq "cpm/model/system/request"
-	systemRes "cpm/model/system/response"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -41,10 +40,10 @@ func (b *BaseApi) Register(c *gin.Context) {
 		return
 	}
 	user := &system.SysUser{Email: r.Email, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg}
-	err, userReturn := userService.Register(*user)
+	err, _ := userService.Register(*user)
 	if err != nil {
 		response.FailWithDetailed(nil, err.Error(), c)
 	} else {
-		response.OkWithDetailed(systemRes.SysUserResponse{User: userReturn}, "注册成功", c)
+		response.OkWithDetailed(nil, "注册成功", c)
 	}
 }

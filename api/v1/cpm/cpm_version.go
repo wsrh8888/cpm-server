@@ -21,13 +21,10 @@ func (v VersionApi) AddCpmVersion(c *gin.Context) {
 		response.FailWithMessage(errBind.Error(), c)
 		return
 	}
-	if info, err := cpmVersionService.AddVersion(cpmVersion); err != nil {
+	if _, err := cpmVersionService.AddVersion(cpmVersion); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"code":   0,
-			"result": info,
-		})
+		response.OkWithDetailed(nil, "版本发布成功", c)
 	}
 }
 
