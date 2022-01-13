@@ -1,7 +1,6 @@
-FROM golang:alpine as builder
+FROM golang:1.16-alpine as builder
 
-WORKDIR /go/src/github.com/cpmServer
-
+WORKDIR /docker_cpm
 COPY . .
 
 RUN go env -w GO111MODULE=on
@@ -9,13 +8,10 @@ RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w CGO_ENABLED=0
 RUN go env
 RUN go mod tidy
-RUN go build -o server .
-
-
-WORKDIR /go/src/github.com/cpmServer
-
-COPY --from=0 /go/src/github.com/cpmServer ./
+RUN go build -o docker_cpm .
 
 EXPOSE 8888
 
-ENTRYPOINT ./server -c config.docker.yaml
+CMD [ "./docker_cpm" ]
+
+# ENTRYPOINT ./server -c config.docker.yaml
