@@ -10,7 +10,7 @@ RUN go env
 RUN go mod tidy
 RUN go build -o docker_cpm .
 
-EXPOSE 8888
+EXPOSE 7777
 
 CMD [ "./docker_cpm" ]
 
