@@ -1,4 +1,4 @@
-FROM golang:1.16-alpine as builder
+FROM golang:1.14.2
 
 WORKDIR /docker_cpm
 COPY . .
@@ -13,5 +13,3 @@ RUN go build -o docker_cpm .
 EXPOSE 7777
 
 # CMD [ "./docker_cpm" ]
-
-ENTRYPOINT ./docker_cpm -c config.docker.yaml
