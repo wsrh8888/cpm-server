@@ -12,4 +12,4 @@ RUN go build -o docker_cpm .
 
 EXPOSE 7777
 
-# CMD [ "./docker_cpm" ]
+CMD [ "./docker_cpm" ]
