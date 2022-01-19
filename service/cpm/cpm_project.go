@@ -41,6 +41,7 @@ func (cpmService *CpmService) DeleteProject(id uuid.UUID) (err error) {
 }
 
 func (cpmService *CpmService) GetImportInfo(info request.CpmProjectAllInfo) (cpmAll response.CpmProjectAllInfo, err error) {
+	// 查询project相关的信息
 	db := global.CPM_DB.Table("cpm_projects")
 	db = db.Select("cpm_projects.uuid as id, cpm_projects.name, sys_users.nick_name as author_name, cpm_languages.name as language_name, cpm_types.name as type_name")
 	db = db.Where("cpm_projects.name = ?", info.Name)
@@ -49,9 +50,15 @@ func (cpmService *CpmService) GetImportInfo(info request.CpmProjectAllInfo) (cpm
 	db = db.Joins("left join cpm_types on cpm_projects.type_id = cpm_types.id")
 	db.Scan(&cpmAll.CpmProject)
 
-	global.CPM_DB.Where("project_id = ?", cpmAll.CpmProject.Id).Order("created_at DESC").First(&cpmAll.CpmVersion)
+	// 查询version相关的信息
+	dbVersion := global.CPM_DB.Table("cpm_versions")
+	dbVersion = dbVersion.Select("sys_users.nick_name as publisher_name, cpm_versions.description,  cpm_versions.version,  cpm_versions.created_at, cpm_versions.keywords")
+	dbVersion = dbVersion.Where("project_id = ?", cpmAll.CpmProject.Id)
+	dbVersion = dbVersion.Order("created_at DESC")
+	dbVersion = dbVersion.Joins("left join sys_users on cpm_versions.publish_id = sys_users.id")
+	dbVersion.Scan(&cpmAll.CpmVersionNew)
 
-	global.CPM_DB.Where("project_id = ? and version = ?", cpmAll.CpmProject.Id, cpmAll.CpmVersion.Version).Find(&cpmAll.CpmImport)
+	global.CPM_DB.Where("project_id = ? and version = ?", cpmAll.CpmProject.Id, cpmAll.CpmVersionNew.Version).Find(&cpmAll.CpmImport)
 
 	return cpmAll, err
 }

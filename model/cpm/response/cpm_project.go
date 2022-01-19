@@ -2,6 +2,7 @@ package response
 
 import (
 	"cpm/model/cpm"
+	"time"
 
 	uuid "github.com/satori/go.uuid"
 )
@@ -13,9 +14,16 @@ type ProjectList struct {
 	LanguageName string    `json:"languageName"`
 	TypeName     string    `json:"typeName"`
 }
+type VersionInfo struct {
+	CreatedAt     time.Time `json:"createdAt"`
+	Description   string    `json:"description"`
+	Keywords      string    `json:"keywords"`
+	Version       string    `json:"version"`
+	PublisherName string    `json:"publisherName"`
+}
 
 type CpmProjectAllInfo struct {
-	CpmProject ProjectList
-	CpmVersion cpm.CpmVersion
-	CpmImport  []cpm.CpmImport
+	CpmProject    ProjectList     `json:"cpmProject"`
+	CpmVersionNew VersionInfo     `json:"cpmVersionNew"`
+	CpmImport     []cpm.CpmImport `json:"cpmImport"`
 }
