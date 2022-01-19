@@ -1,6 +1,8 @@
 package response
 
 import (
+	"cpm/model/cpm"
+
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -14,6 +16,6 @@ type ProjectList struct {
 
 type CpmProjectAllInfo struct {
 	CpmProject ProjectList
-	// CpmVersion cpm.CpmVersion
-	// CpmType    cpm.CpmType
+	CpmVersion cpm.CpmVersion
+	CpmImport  []cpm.CpmImport
 }
