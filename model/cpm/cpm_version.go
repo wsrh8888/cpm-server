@@ -1,7 +1,6 @@
 package cpm
 
 import (
-	"cpm/model/system"
 	"time"
 
 	uuid "github.com/satori/go.uuid"
@@ -16,6 +15,6 @@ type CpmVersion struct {
 	Description string    `json:"description"  gorm:"comment:'描述信息'"`
 	Keywords    string    `json:"keywords" gorm:"comment:'关键字'"`
 	Url         string    `json:"url" gorm:"comment:'按需引入的域名'"`
-	Publish     system.SysUser
-	ImportList  []CpmImport `json:"ImportList"  gorm:"-"`
+	// Publish     system.SysUser
+	// ImportList  []CpmImport `json:"ImportList"  gorm:"-"`
 }

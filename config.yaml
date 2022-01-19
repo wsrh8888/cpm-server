@@ -6,10 +6,10 @@ captcha:
   img-width: 240
   img-height: 80
 mysql:
-  path: 39.105.146.104
+  path: 127.0.0.1
   port: "3306"
   config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: 'cpm'
+  db-name: 'cpm_test'
   username: root
   password: '7823125.'
   max-idle-conns: 10

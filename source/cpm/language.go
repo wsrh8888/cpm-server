@@ -21,9 +21,9 @@ func (u *language) TableName() string {
 
 func (u *language) Initialize() error {
 	entities := []cpm.CpmLanguage{
-		{LanguageId: "1000", LanguageName: "vue2"},
-		{LanguageId: "2000", LanguageName: "vue3"},
-		{LanguageId: "3000", LanguageName: "react"},
+		{ID: "1000", Name: "vue2"},
+		{ID: "2000", Name: "vue3"},
+		{ID: "3000", Name: "react"},
 	}
 	if err := global.CPM_DB.Create(&entities).Error; err != nil {
 		return errors.Wrap(err, u.TableName()+"表数据初始化失败!")
@@ -33,7 +33,7 @@ func (u *language) Initialize() error {
 }
 
 func (u *language) CheckDataExist() bool {
-	if errors.Is(global.CPM_DB.Where("language_id = ?", "1000").First(&cpm.CpmLanguage{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
+	if errors.Is(global.CPM_DB.Where("id = ?", "1000").First(&cpm.CpmLanguage{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
 		return false
 	}
 	return true

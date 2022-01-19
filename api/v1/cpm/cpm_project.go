@@ -4,6 +4,7 @@ import (
 	"cpm/model/common/request"
 	"cpm/model/common/response"
 	cpmRequestModel "cpm/model/cpm/request"
+	"net/http"
 
 	"cpm/model/cpm"
 
@@ -11,6 +12,28 @@ import (
 )
 
 type ProjectApi struct{}
+
+// @Tags Menu
+// @Summary 获取某个项目的全部信息
+// @Param data body system.SysBaseMenu true "路由path, 父菜单ID, 路由name, 对应前端文件路径, 排序标记"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"添加成功"}"
+// @Router /menu/addBaseMenu [post]
+func (*ProjectApi) GetCpmProjectAllInfo(c *gin.Context) {
+	var r cpmRequestModel.CpmProjectAllInfo
+	if errBind := c.ShouldBindJSON(&r); errBind != nil {
+		response.FailWithMessage(errBind.Error(), c)
+		return
+	}
+	if info, err := cpmService.GetImportInfo(r); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":   0,
+			"result": info,
+		})
+	}
+
+}
 
 func (*ProjectApi) GetCpmProject(c *gin.Context) {
 	var pageInfo cpmRequestModel.SysDictionaryDetailSearch
@@ -26,16 +49,6 @@ func (*ProjectApi) GetCpmProject(c *gin.Context) {
 			PageSize: pageInfo.PageSize,
 		}, "获取成功", c)
 	}
-	// var cpmProject cpm.CpmProject
-	// _ = c.ShouldBindJSON(&cpmProject)
-	// if info, err := cpmService.GetProject(cpmProject.ID); err != nil {
-	// 	response.FailWithMessage(err.Error(), c)
-	// } else {
-	// 	c.JSON(http.StatusOK, gin.H{
-	// 		"code":   0,
-	// 		"result": info,
-	// 	})
-	// }
 }
 
 // @Tags Menu

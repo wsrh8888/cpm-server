@@ -11,3 +11,9 @@ type ProjectList struct {
 	LanguageName string    `json:"languageName"`
 	TypeName     string    `json:"typeName"`
 }
+
+type CpmProjectAllInfo struct {
+	CpmProject ProjectList
+	// CpmVersion cpm.CpmVersion
+	// CpmType    cpm.CpmType
+}
