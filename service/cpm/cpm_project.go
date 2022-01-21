@@ -58,6 +58,15 @@ func (cpmService *CpmService) GetImportInfo(info request.CpmProjectAllInfo) (cpm
 	dbVersion = dbVersion.Joins("left join sys_users on cpm_versions.publish_id = sys_users.id")
 	dbVersion.Scan(&cpmAll.CpmVersionNew)
 
+	// 查询所有的version版本信息
+	dbVersions := global.CPM_DB.Table("cpm_versions")
+	dbVersions = dbVersions.Select("sys_users.nick_name as publisher_name, cpm_versions.description,  cpm_versions.version,  cpm_versions.created_at, cpm_versions.keywords")
+	dbVersions = dbVersions.Where("project_id = ?", cpmAll.CpmProject.Id)
+	dbVersions = dbVersions.Order("version DESC")
+	dbVersions = dbVersions.Joins("left join sys_users on cpm_versions.publish_id = sys_users.id")
+	dbVersions.Find(&cpmAll.CpmVersions)
+
+	// 查询import
 	global.CPM_DB.Where("project_id = ? and version = ?", cpmAll.CpmProject.Id, cpmAll.CpmVersionNew.Version).Find(&cpmAll.CpmImport)
 
 	return cpmAll, err

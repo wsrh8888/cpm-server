@@ -26,4 +26,5 @@ type CpmProjectAllInfo struct {
 	CpmProject    ProjectList     `json:"cpmProject"`
 	CpmVersionNew VersionInfo     `json:"cpmVersionNew"`
 	CpmImport     []cpm.CpmImport `json:"cpmImport"`
+	CpmVersions   []VersionInfo   `json:"cpmVersions"`
 }
